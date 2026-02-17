@@ -1,6 +1,7 @@
-package bezier;
+package spline.bezier;
 
-import node.Node;
+import spline.node.ControlPoint;
+import spline.node.Node;
 
 import java.util.HashMap;
 
@@ -11,18 +12,18 @@ import static com.raylib.Colors.WHITE;
 public class Bezier {
 
     private Node p0;
+    private ControlPoint c0;
     private Node p1;
-    private Node p2;
-    private Node p3;
+    private ControlPoint c1;
 
     private static final int RESOLUTION = 50;
     private static final HashMap<Float, Float[]> precompiledTVals = precompileTVals();
 
-    public Bezier(Node p0, Node p1, Node p2, Node p3) {
+    public Bezier(Node p0, Node p1) {
         this.p0 = p0;
         this.p1 = p1;
-        this.p2 = p2;
-        this.p3 = p3;
+        this.c0 = p0.getControlPoint(1);
+        this.c1 = p1.getControlPoint(0);
     }
 
     private static HashMap<Float, Float[]> precompileTVals() {
@@ -48,18 +49,18 @@ public class Bezier {
     public void update() {
         p0.update();
         p1.update();
-        p2.update();
-        p3.update();
+        c0.update();
+        c1.update();
     }
 
     public void draw() {
         p0.draw();
         p1.draw();
-        p2.draw();
-        p3.draw();
+        c0.draw();
+        c1.draw();
 
-        DrawLineV(p0.getPosition(), p1.getPosition(), WHITE);
-        DrawLineV(p3.getPosition(), p2.getPosition(), WHITE);
+        DrawLineV(p0.getPosition(), c0.getPosition(), WHITE);
+        DrawLineV(p1.getPosition(), c1.getPosition(), WHITE);
 
         /*
         Matrix form
@@ -91,8 +92,8 @@ public class Bezier {
                 return;
             }
 
-            current = Vector2Add(Vector2Add(Vector2Scale(p0.getPosition(), ts[0]), Vector2Scale(p1.getPosition(), ts[1])),
-                      Vector2Add(Vector2Scale(p2.getPosition(), ts[2]), Vector2Scale(p3.getPosition(), ts[3])));
+            current = Vector2Add(Vector2Add(Vector2Scale(p0.getPosition(), ts[0]), Vector2Scale(c0.getPosition(), ts[1])),
+                      Vector2Add(Vector2Scale(c1.getPosition(), ts[2]), Vector2Scale(p1.getPosition(), ts[3])));
 
             // Genuinely the worst line of code I have ever fucking written, just keeping it here because I have to remember to strive for greatness not the burning pits of hell
             // current = Vector2Add(Vector2Add(p0.getPosition(),

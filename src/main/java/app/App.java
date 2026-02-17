@@ -4,8 +4,9 @@ import static com.raylib.Colors.BLACK;
 import static com.raylib.Raylib.*;
 
 import app.gui.AppGUI;
-import bezier.Bezier;
-import node.Node;
+import spline.bezier.Bezier;
+import spline.node.ControlPoint;
+import spline.node.Node;
 
 public class App {
 
@@ -17,10 +18,8 @@ public class App {
 
     public App() {
         this.curve = new Bezier(
-                new Node(new Vector2().x(350).y(500)),
-                new Node(new Vector2().x(450).y(200)),
-                new Node(new Vector2().x(650).y(200)),
-                new Node(new Vector2().x(750).y(500))
+                new Node(new Vector2().x(350).y(500), null, new ControlPoint(new Vector2().x(450).y(200))),
+                new Node(new Vector2().x(750).y(500), new ControlPoint(new Vector2().x(650).y(200)), null)
         );
         this.gui = new AppGUI();
     }

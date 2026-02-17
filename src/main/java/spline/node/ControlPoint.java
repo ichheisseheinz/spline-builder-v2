@@ -1,14 +1,14 @@
-package node;
+package spline.node;
 
 import static com.raylib.Colors.WHITE;
 import static com.raylib.Raylib.*;
 
-public class Node {
+public class ControlPoint {
 
     private Vector2 position;
     private boolean active;
 
-    public Node(Vector2 position) {
+    public ControlPoint(Vector2 position) {
         this.position = position;
         this.active = false;
     }
@@ -34,5 +34,9 @@ public class Node {
 
     public Vector2 getPosition() {
         return position;
+    }
+
+    public void addPosition(Vector2 toAdd) {
+        position = Vector2Add(position, toAdd);
     }
 }
