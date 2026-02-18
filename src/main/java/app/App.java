@@ -4,7 +4,7 @@ import static com.raylib.Colors.BLACK;
 import static com.raylib.Raylib.*;
 
 import app.gui.AppGUI;
-import spline.bezier.Bezier;
+import spline.Spline;
 import spline.node.ControlPoint;
 import spline.node.Node;
 
@@ -13,14 +13,15 @@ public class App {
     public static final int WIDTH = 1080;
     public static final int HEIGHT = 720;
 
-    private Bezier curve;
+    private Spline curve;
     private AppGUI gui;
 
     public App() {
-        this.curve = new Bezier(
-                new Node(new Vector2().x(350).y(500), null, new ControlPoint(new Vector2().x(450).y(200))),
-                new Node(new Vector2().x(750).y(500), new ControlPoint(new Vector2().x(650).y(200)), null)
-        );
+        this.curve = new Spline();
+        this.curve.addNode(new Node(new Vector2().x(150).y(400), null, new ControlPoint(new Vector2().x(250).y(100))));
+        this.curve.addNode(new Node(new Vector2().x(550).y(400),
+                new ControlPoint(new Vector2().x(450).y(100)), new ControlPoint(new Vector2().x(650).y(700))));
+        this.curve.addNode(new Node(new Vector2().x(950).y(400), new ControlPoint(new Vector2().x(850).y(700)), null));
         this.gui = new AppGUI();
     }
 

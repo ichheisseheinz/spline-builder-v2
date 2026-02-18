@@ -7,7 +7,6 @@ import java.util.HashMap;
 
 import static com.raylib.Colors.RAYWHITE;
 import static com.raylib.Raylib.*;
-import static com.raylib.Colors.WHITE;
 
 public class Bezier {
 
@@ -46,15 +45,7 @@ public class Bezier {
         return compiled;
     }
 
-    public void update() {
-        p0.update();
-        p1.update();
-    }
-
     public void draw() {
-        p0.draw();
-        p1.draw();
-
         /*
         Matrix form
         [1 t t^2 t^3] [ 1  0  0  0] [p0]
