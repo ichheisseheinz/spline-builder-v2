@@ -13,17 +13,16 @@ public class ControlPoint {
         this.active = false;
     }
 
-    public void update() {
-        Vector2 pos = GetMousePosition();
+    public void update(Vector2 mousePos) {
         Rectangle boundingRec = new Rectangle().x(position.x() - 5).y(position.y() - 5).width(10).height(10);
 
         // Ensure only moving active nodes
-        if (!active && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(pos, boundingRec)) active = true;
+        if (!active && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mousePos, boundingRec)) active = true;
         else if (active && IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) active = false;
 
         // Check if mouse intersects node bounds, if so, move
         if (active && IsMouseButtonDown(MOUSE_BUTTON_LEFT) &&
-                (CheckCollisionPointRec(pos, boundingRec) || CheckCollisionPointRec(Vector2Subtract(pos, GetMouseDelta()), boundingRec))) {
+                (CheckCollisionPointRec(mousePos, boundingRec) || CheckCollisionPointRec(Vector2Subtract(mousePos, GetMouseDelta()), boundingRec))) {
             position = Vector2Add(position, GetMouseDelta());
         }
     }

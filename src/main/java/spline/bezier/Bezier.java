@@ -49,18 +49,11 @@ public class Bezier {
     public void update() {
         p0.update();
         p1.update();
-        c0.update();
-        c1.update();
     }
 
     public void draw() {
         p0.draw();
         p1.draw();
-        c0.draw();
-        c1.draw();
-
-        DrawLineV(p0.getPosition(), c0.getPosition(), WHITE);
-        DrawLineV(p1.getPosition(), c1.getPosition(), WHITE);
 
         /*
         Matrix form

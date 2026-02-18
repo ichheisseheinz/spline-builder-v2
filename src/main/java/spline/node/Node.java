@@ -13,9 +13,7 @@ public class Node {
     public Node(Vector2 position, ControlPoint first, ControlPoint second) {
         this.position = position;
         this.active = false;
-        controlPoints = new ControlPoint[2];
-        controlPoints[0] = first;
-        controlPoints[1] = second;
+        controlPoints = new ControlPoint[]{first, second};
     }
 
     public void update() {
@@ -36,10 +34,21 @@ public class Node {
                 if (cp != null) cp.addPosition(GetMouseDelta());
             }
         }
+
+        for (ControlPoint cp : controlPoints) {
+            if (cp != null) cp.update(pos);
+        }
     }
 
     public void draw() {
         DrawCircleV(position, 5, WHITE);
+
+        for (ControlPoint cp : controlPoints) {
+            if (cp != null) {
+                cp.draw();
+                DrawLineV(position, cp.getPosition(), WHITE);
+            }
+        }
     }
 
     public Vector2 getPosition() {
