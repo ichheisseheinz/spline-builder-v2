@@ -1,6 +1,9 @@
 package spline.node;
 
+import app.App;
+
 import static com.raylib.Colors.WHITE;
+import static com.raylib.Colors.YELLOW;
 import static com.raylib.Raylib.*;
 
 public class ControlPoint {
@@ -17,8 +20,13 @@ public class ControlPoint {
         Rectangle boundingRec = new Rectangle().x(position.x() - 5).y(position.y() - 5).width(10).height(10);
 
         // Ensure only moving active nodes
-        if (!active && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mousePos, boundingRec)) active = true;
-        else if (active && IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) active = false;
+        if (!active && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mousePos, boundingRec) && !App.IS_NODE_SELECTED) {
+            active = true;
+            App.IS_NODE_SELECTED = true;
+        } else if (active && IsMouseButtonReleased(MOUSE_BUTTON_LEFT) && App.IS_NODE_SELECTED) {
+            active = false;
+            App.IS_NODE_SELECTED = false;
+        }
 
         // Check if mouse intersects node bounds, if so, move
         if (active && IsMouseButtonDown(MOUSE_BUTTON_LEFT) &&
@@ -28,7 +36,7 @@ public class ControlPoint {
     }
 
     public void draw() {
-        DrawCircleLinesV(position, 5, WHITE);
+        DrawCircleLinesV(position, 5, active ? YELLOW : WHITE);
     }
 
     public Vector2 getPosition() {

@@ -16,6 +16,8 @@ public class App {
     private Spline curve;
     private AppGUI gui;
 
+    public static boolean IS_NODE_SELECTED = false;
+
     public App() {
         this.curve = new Spline();
         this.curve.addNode(new Node(new Vector2().x(150).y(400), null, new ControlPoint(new Vector2().x(250).y(100))));
