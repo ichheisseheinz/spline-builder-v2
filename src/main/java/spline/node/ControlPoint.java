@@ -17,7 +17,8 @@ public class ControlPoint {
     }
 
     public void update(Vector2 mousePos) {
-        Rectangle boundingRec = new Rectangle().x(position.x() - 5).y(position.y() - 5).width(10).height(10);
+        Rectangle boundingRec = new Rectangle()
+                .x(position.x() - 5 - App.getCamera().target().x()).y(position.y() - 5 - App.getCamera().target().y()).width(10).height(10);
 
         // Ensure only moving active nodes
         if (!active && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mousePos, boundingRec) && !App.IS_NODE_SELECTED) {

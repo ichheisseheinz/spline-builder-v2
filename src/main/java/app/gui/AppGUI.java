@@ -14,12 +14,18 @@ public class AppGUI {
     }
 
     public void background(int spacing) {
-        for (int row = 0; row < App.HEIGHT; row += spacing) {
-            DrawLine(0, row, App.WIDTH, row, GRAY);
+        Vector2 cameraPos = App.getCamera().target();
+        int quotientX = (int) (cameraPos.x() / spacing) * spacing;
+        int quotientY = (int) (cameraPos.y() / spacing) * spacing;
+
+        for (int row = 0; row < App.HEIGHT + spacing; row += spacing) {
+            DrawLine((int)cameraPos.x(), row + quotientY,
+                    App.WIDTH + (int)cameraPos.x(), row + quotientY, GRAY);
         }
 
-        for (int col = 0; col < App.WIDTH; col += spacing) {
-            DrawLine(col, 0, col, App.HEIGHT, GRAY);
+        for (int col = 0; col < App.WIDTH + spacing; col += spacing) {
+            DrawLine(col + quotientX, (int)cameraPos.y(),
+                    col + quotientX, App.HEIGHT + (int)cameraPos.y(), GRAY);
         }
     }
 

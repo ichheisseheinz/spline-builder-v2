@@ -16,6 +16,8 @@ public class App {
     private Spline curve;
     private AppGUI gui;
 
+    private static Camera2D camera;
+
     public static boolean IS_NODE_SELECTED = false;
 
     public App() {
@@ -25,9 +27,17 @@ public class App {
                 new ControlPoint(new Vector2().x(450).y(100)), new ControlPoint(new Vector2().x(650).y(700))));
         this.curve.addNode(new Node(new Vector2().x(950).y(400), new ControlPoint(new Vector2().x(850).y(700)), null));
         this.gui = new AppGUI();
+
+        camera = new Camera2D().target(new Vector2()).rotation(0).zoom(1);
     }
 
     public void update() {
+        // Update camera
+        if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
+            camera.target(Vector2Subtract(camera.target(), GetMouseDelta()));
+        }
+
+        // Update curve
         curve.update();
     }
 
@@ -36,12 +46,18 @@ public class App {
 
         ClearBackground(BLACK);
 
+        BeginMode2D(camera);
         gui.background(50);
         curve.draw();
-        gui.UI();
+        EndMode2D();
 
+        gui.UI();
         DrawFPS(10, 10);
 
         EndDrawing();
+    }
+
+    public static Camera2D getCamera() {
+        return camera;
     }
 }
