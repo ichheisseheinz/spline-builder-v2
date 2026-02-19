@@ -35,7 +35,7 @@ public class AppGUI {
         // Add node info label
         if (showAddNodeInfoLabel) {
             GuiDummyRec(new Rectangle().x(80).y(70).width(150).height(75), "Click anywhere to add\na new node");
-            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) showAddNodeInfoLabel = false;
+            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) || IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) showAddNodeInfoLabel = false;
         }
 
         // File save dialog

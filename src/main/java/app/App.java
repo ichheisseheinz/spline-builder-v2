@@ -17,7 +17,7 @@ public class App {
 
     private static Camera2D camera;
 
-    public static boolean IS_NODE_SELECTED = false;
+    public static ControlPoint ACTIVE_CONTROL_POINT = null;
 
     public App() {
         this.curve = new Spline();
@@ -32,9 +32,9 @@ public class App {
 
     public void update() {
         // Update camera
-        if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
-            camera.target(Vector2Subtract(camera.target(), GetMouseDelta()));
-        }
+        if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) camera.target(Vector2Subtract(camera.target(), GetMouseDelta()));
+        // Reset camera
+        if (IsKeyPressed(KEY_R)) camera.target(new Vector2());
 
         // Update curve
         curve.update();

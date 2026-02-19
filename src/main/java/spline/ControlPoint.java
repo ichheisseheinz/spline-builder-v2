@@ -10,6 +10,7 @@ public class ControlPoint {
 
     private Vector2 position;
     private boolean active = false;
+    private boolean isChild = true;
 
     private ControlPoint[] controlPoints;
 
@@ -19,7 +20,8 @@ public class ControlPoint {
 
     public ControlPoint(Vector2 position, ControlPoint first, ControlPoint second) {
         this(position);
-        controlPoints = new ControlPoint[]{first, second};
+        this.controlPoints = new ControlPoint[]{first, second};
+        this.isChild = false;
     }
 
     public void update() {
@@ -28,12 +30,13 @@ public class ControlPoint {
                 .x(position.x() - 5 - App.getCamera().target().x()).y(position.y() - 5 - App.getCamera().target().y()).width(10).height(10);
 
         // Ensure only moving active nodes
-        if (!active && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mousePos, boundingRec) && !App.IS_NODE_SELECTED) {
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mousePos, boundingRec) && App.ACTIVE_CONTROL_POINT == null) {
             active = true;
-            App.IS_NODE_SELECTED = true;
-        } else if (active && IsMouseButtonReleased(MOUSE_BUTTON_LEFT) && App.IS_NODE_SELECTED) {
+            App.ACTIVE_CONTROL_POINT = this;
+        } else if ((active && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !CheckCollisionPointRec(mousePos, boundingRec) && App.ACTIVE_CONTROL_POINT != null)
+                    || IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
             active = false;
-            App.IS_NODE_SELECTED = false;
+            App.ACTIVE_CONTROL_POINT = null;
         }
 
         // Check if mouse intersects node bounds, if so, move
@@ -54,7 +57,7 @@ public class ControlPoint {
         }
     }
 
-    public void draw(boolean isChild) {
+    public void draw() {
         if (isChild) DrawCircleLinesV(position, 5, active ? YELLOW : WHITE);
         else DrawCircleV(position, 5, active ? YELLOW : WHITE);
 
@@ -64,7 +67,7 @@ public class ControlPoint {
         if (controlPoints != null) {
             for (ControlPoint c : controlPoints) {
                 if (c != null) {
-                    c.draw(true);
+                    c.draw();
                     DrawLineV(position, c.getPosition(), WHITE);
                 }
             }

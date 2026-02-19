@@ -26,7 +26,7 @@ public class Spline {
     }
 
     public void draw() {
-        for (ControlPoint c : controlPoints) c.draw(false); // Only draw nodes once
+        for (ControlPoint c : controlPoints) c.draw(); // Only draw nodes once
         for (Bezier b : segments) b.draw(); // Draw curves separately
     }
 }
