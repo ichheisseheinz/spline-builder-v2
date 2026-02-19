@@ -2,16 +2,14 @@ package app.gui;
 
 import static com.raylib.Raylib.*;
 import static com.raylib.Colors.GRAY;
+import static com.raylib.Colors.DARKGRAY;
 
 import app.App;
 
 public class AppGUI {
 
-    private boolean showMessageBox;
-
-    public AppGUI() {
-        this.showMessageBox = false;
-    }
+    private boolean showAddNodeInfoLabel = false;
+    private boolean fileSaveDialog = false;
 
     public void background(int spacing) {
         Vector2 cameraPos = App.getCamera().target();
@@ -20,24 +18,29 @@ public class AppGUI {
 
         for (int row = 0; row < App.HEIGHT + spacing; row += spacing) {
             DrawLine((int)cameraPos.x(), row + quotientY,
-                    App.WIDTH + (int)cameraPos.x(), row + quotientY, GRAY);
+                    App.WIDTH + (int)cameraPos.x(), row + quotientY, row + quotientY == 0 ? GRAY : DARKGRAY);
         }
 
         for (int col = 0; col < App.WIDTH + spacing; col += spacing) {
             DrawLine(col + quotientX, (int)cameraPos.y(),
-                    col + quotientX, App.HEIGHT + (int)cameraPos.y(), GRAY);
+                    col + quotientX, App.HEIGHT + (int)cameraPos.y(), col + quotientX == 0 ? GRAY : DARKGRAY);
         }
     }
 
     public void UI() {
-        if (GuiButton(new Rectangle().x(24).y(24).width(120).height(30), "#191#Info") == 1) showMessageBox = true;
+        // Buttons
+        if (GuiButton(new Rectangle().x(25).y(25).width(30).height(30), "#125#") == 1) showAddNodeInfoLabel = true;
+        if (GuiButton(new Rectangle().x(25).y(60).width(30).height(30), "#4#") == 1) fileSaveDialog = true;
 
-        if (showMessageBox)
-        {
-            int result = GuiMessageBox(new Rectangle().x(85).y(70).width(250).height(100),
-            "#191#Message Box", "This doesn't do anything yet\nJust trying out raygui", "Gimme some time;Lemme be");
+        // Add node info label
+        if (showAddNodeInfoLabel) {
+            GuiDummyRec(new Rectangle().x(80).y(70).width(150).height(75), "Click anywhere to add\na new node");
+            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) showAddNodeInfoLabel = false;
+        }
 
-            if (result >= 0) showMessageBox = false;
+        // File save dialog
+        if (fileSaveDialog) {
+            fileSaveDialog = false; // no saving yet
         }
     }
 }

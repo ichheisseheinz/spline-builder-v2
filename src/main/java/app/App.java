@@ -21,13 +21,13 @@ public class App {
 
     public App() {
         this.curve = new Spline();
-        this.curve.addNode(new ControlPoint(new Vector2().x(150).y(400), null, new ControlPoint(new Vector2().x(250).y(100))));
-        this.curve.addNode(new ControlPoint(new Vector2().x(550).y(400),
-                new ControlPoint(new Vector2().x(450).y(100)), new ControlPoint(new Vector2().x(650).y(700))));
-        this.curve.addNode(new ControlPoint(new Vector2().x(950).y(400), new ControlPoint(new Vector2().x(850).y(700)), null));
+        this.curve.addNode(new ControlPoint(new Vector2().x(150).y(350), null, new ControlPoint(new Vector2().x(250).y(50))));
+        this.curve.addNode(new ControlPoint(new Vector2().x(550).y(350),
+                new ControlPoint(new Vector2().x(450).y(50)), new ControlPoint(new Vector2().x(650).y(650))));
+        this.curve.addNode(new ControlPoint(new Vector2().x(950).y(350), new ControlPoint(new Vector2().x(850).y(650)), null));
         this.gui = new AppGUI();
 
-        camera = new Camera2D().target(new Vector2()).rotation(0).zoom(1);
+        camera = new Camera2D().rotation(0).zoom(1);
     }
 
     public void update() {
@@ -51,7 +51,7 @@ public class App {
         EndMode2D();
 
         gui.UI();
-        DrawFPS(10, 10);
+        DrawFPS(5, 5);
 
         EndDrawing();
     }
