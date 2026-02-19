@@ -5,8 +5,7 @@ import static com.raylib.Raylib.*;
 
 import app.gui.AppGUI;
 import spline.Spline;
-import spline.node.ControlPoint;
-import spline.node.Node;
+import spline.ControlPoint;
 
 public class App {
 
@@ -22,10 +21,10 @@ public class App {
 
     public App() {
         this.curve = new Spline();
-        this.curve.addNode(new Node(new Vector2().x(150).y(400), null, new ControlPoint(new Vector2().x(250).y(100))));
-        this.curve.addNode(new Node(new Vector2().x(550).y(400),
+        this.curve.addNode(new ControlPoint(new Vector2().x(150).y(400), null, new ControlPoint(new Vector2().x(250).y(100))));
+        this.curve.addNode(new ControlPoint(new Vector2().x(550).y(400),
                 new ControlPoint(new Vector2().x(450).y(100)), new ControlPoint(new Vector2().x(650).y(700))));
-        this.curve.addNode(new Node(new Vector2().x(950).y(400), new ControlPoint(new Vector2().x(850).y(700)), null));
+        this.curve.addNode(new ControlPoint(new Vector2().x(950).y(400), new ControlPoint(new Vector2().x(850).y(700)), null));
         this.gui = new AppGUI();
 
         camera = new Camera2D().target(new Vector2()).rotation(0).zoom(1);

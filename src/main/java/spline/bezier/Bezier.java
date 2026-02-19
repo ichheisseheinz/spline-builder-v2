@@ -1,7 +1,6 @@
 package spline.bezier;
 
-import spline.node.ControlPoint;
-import spline.node.Node;
+import spline.ControlPoint;
 
 import java.util.HashMap;
 
@@ -10,15 +9,15 @@ import static com.raylib.Raylib.*;
 
 public class Bezier {
 
-    private Node p0;
+    private ControlPoint p0;
     private ControlPoint c0;
-    private Node p1;
+    private ControlPoint p1;
     private ControlPoint c1;
 
     private static final int RESOLUTION = 50;
     private static final HashMap<Float, Float[]> precompiledTVals = precompileTVals();
 
-    public Bezier(Node p0, Node p1) {
+    public Bezier(ControlPoint p0, ControlPoint p1) {
         this.p0 = p0;
         this.p1 = p1;
         this.c0 = p0.getControlPoint(1);
